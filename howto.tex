@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+
+% Gestion de l'encodage des accents et de la langue
+%---------------------------
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%---------------------------
+
+
+% Structure de la page
+%---------------------------
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+% \usepackage[babel=true,kerning=true]{microtype} % useless
+%---------------------------
+
+
+% Mise en page
+%---------------------------
+\pagestyle{plain}
+\frenchbsetup % itemize avec puces
+{
+StandardItemLabels=true,
+ItemLabels=\ding{43},
+}
+%---------------------------
+
+
+% Utilisation des couleurs pour les titres
+%---------------------------
+\usepackage[dvipsnames]{xcolor}
+\definecolor{gris125}{gray}{0.875}
+\definecolor{gris25}{gray}{0.75}
+\definecolor{gris5}{gray}{0.5}
+\definecolor{blanc}{gray}{0}
+%---------------------------
+
+
+% Polices et caractères spéciaux
+%---------------------------
+\usepackage{lmodern}
+\usepackage[sfdefault]{overlock}
+\usepackage{calrsfs}
+
+\def \epsilon{\varepsilon}
+\def \phi{\varphi}
+%---------------------------
+
+
+% Écriture des mathématiques
+%---------------------------
+\usepackage{amsmath, amsfonts, amssymb, mathrsfs, esint}
+\usepackage{amsthm}
+\usepackage{wasysym}
+\usepackage{marvosym} % \EUR
+\usepackage{xspace}
+\newcommand{\euro}{\EUR\xspace}
+%---------------------------
+
+% Affichage des tableaux
+%---------------------------
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.4}
+%---------------------------
+
+
+% Divers
+%---------------------------
+\usepackage{fancybox}
+\usepackage{enumerate}
+\usepackage{multicol}
+\setlength\multicolsep{\parskip}
+\usepackage{manfnt}
+\usepackage{chemfig}
+\usepackage{tabto}
+\usepackage[inline]{asymptote}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usetikzlibrary{mindmap,backgrounds}
+%---------------------------
+
+
+% Présentation des chapitres et sections
+%---------------------------
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=true, %colorise les liens
+breaklinks=true, %permet le retour à la ligne dans les liens trop longs
+urlcolor= blue, %couleur des hyperliens
+linkcolor= black,	%couleur des liens internes
+citecolor=black	%couleur des références
+}
+
+% Sections
+\usepackage[explicit, nobottomtitles]{titlesec}
+
+\newlength\sectionboxwidth
+\setlength\sectionboxwidth{\textwidth}
+\addtolength\sectionboxwidth{-2\fboxsep}
+
+\DeclareFixedFont{\sectionfont}{T1}{phv}{bx}{n}{11mm}
+\titlespacing*{\section}{0pt}{-1\baselineskip minus \parskip}{2\baselineskip}
+\renewcommand\thesection{\Roman{section}}
+
+\titleformat{\section}[display]{\LARGE\normalfont\bfseries}{}{0pt}{\hfill\thesection.~#1\hfill}
+
+% Sous-sections
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+\titleformat{\subsection}[hang]{}{}{0pt}{\colorbox{Tan!15!white}{\parbox[c][][s]{\sectionboxwidth}{\Large \bfseries \rule[-0.2cm]{0mm}{0.75cm} \thesubsection{} - #1}}}
+\titlespacing*{\subsection}{0pt}{1.2\bigskipamount}{.8\bigskipamount}
+
+% Sous-sous-sections
+\titleformat{\subsubsection}{\large\normalfont\bfseries}{\\\qquad \thesubsubsection.}{0.75em}{\qquad \underline{\smash{#1}}}
+
+
+% Limite de la table des matières
+%---------------------------
+\setcounter{secnumdepth}{2}
+%---------------------------
+
+
+% Création des encadrés personnalisés et des macros
+%---------------------------
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\usepackage{varwidth}
+\tcbuselibrary{skins}
+\renewcommand{\emph}[1]{\textbf{\textcolor{RedViolet}{#1}}}
+% création du type Attention
+
+% création macros attention
+\def \danger{\textdbend}
+\newlength{\capletterheight}
+\settoheight{\capletterheight}{A} % height of the capital A
+\newcommand{\warning}{\protect\includegraphics[height = \capletterheight]{attention.png}~}
+
+\newtcbtheorem[no counter]{Attention}{\warning Attention !}
+%
+{enhanced,frame empty,interior empty,colframe=RedViolet,
+	coltitle=black,fonttitle=\bfseries,colbacktitle=RedViolet!50!white,
+	borderline={0.5mm}{0mm}{RedViolet},
+	attach boxed title to top left={yshift=-2mm, xshift=10mm},
+	boxed title style={boxrule=0.4pt},varwidth boxed title}{theo}
+
+% création du type Bon à savoir / faire
+
+\newenvironment{Asavoir}[1]{
+\tcbox[colback=RoyalBlue!15!white,colframe=RoyalBlue,nobeforeafter,boxsep=0pt,on line,boxrule=0.4pt]{
+\textbf{\!\!Bon à savoir\!\!}}~#1}{}
+	
+\newtcbtheorem[no counter]{Afaire}{Bon à faire}
+%
+{enhanced,frame empty,interior empty,colframe=RoyalBlue,
+	coltitle=black,fonttitle=\bfseries,colbacktitle=RoyalBlue!15!white,
+	borderline={0.5mm}{0mm}{RoyalBlue},
+	attach boxed title to top left={yshift=-2mm, xshift=10mm},
+	boxed title style={boxrule=0.4pt},varwidth boxed title}{theo}
+
+% création du type À anticiper
+
+\newtcbtheorem[no counter]{Aanticiper}{À anticiper}
+%
+{enhanced,frame empty,interior empty,colframe=Brown,
+	coltitle=black,fonttitle=\bfseries,colbacktitle=Brown!15!white,
+	borderline={0.5mm}{0mm}{Brown},
+	attach boxed title to top left={yshift=-2mm, xshift=10mm},
+	boxed title style={boxrule=0.4pt},varwidth boxed title}{theo}
+
+%---------------------------
